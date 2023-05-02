@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include <stdbool.h>
 
+#include "chip8.h"
+
 int main(int argc, char **argv)
 {
     // Initialize SDL
@@ -14,10 +16,10 @@ int main(int argc, char **argv)
 
     // Test window, h and w scaled by 10 so each pixel of chip-8 = 100 pixels displayed
     SDL_Window *window = SDL_CreateWindow(
-        "Chip-8 Window",
+        EMULATOR_WINDOW_TITLE,
         SDL_WINDOWPOS_UNDEFINED,
         SDL_WINDOWPOS_UNDEFINED,
-        640, 320, 0);
+        CHIP8_WIDTH * CHIP8_WINDOW_MULTIPLIER, CHIP8_HEIGHT * CHIP8_WINDOW_MULTIPLIER, 0);
 
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_TEXTUREACCESS_TARGET);
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
