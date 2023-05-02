@@ -6,9 +6,11 @@ Note:
 This emulation is meant for educational purposes only.
 
 ## Installation
-
+### Mac
 ```bash
+brew install sdl2
 make
+./bin/main
 ```
 
 ## Dependency 
