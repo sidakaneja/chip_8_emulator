@@ -2,8 +2,10 @@
 #include "SDL2/SDL.h"
 #include <unistd.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 #include "chip8.h"
+#include "config.h"
 
 int main(int argc, char **argv)
 {
@@ -11,10 +13,11 @@ int main(int argc, char **argv)
     struct chip8 chip8;
     chip8.registers.SP = 0;
 
-    chip8_stack_push(&chip8, 0xFF);
-    chip8_stack_push(&chip8, 0xAA);
+    const uint8_t keyboard_map[CHIP8_TOTAL_KEYS]{
+        SDLK_0, SDLK_1, SDLK_2, SDLK_3, SDLK_4, SDLK_5, SDLK_6,
+        SDLK_7, SDLK_8, SDLK_9, SDLK_a, SDLK_b, SDLK_c, SDLK_d,
+        SDLK_e, SDLK_f};
 
-    printf("%x %x\n", chip8_stack_pop(&chip8), chip8_stack_pop(&chip8));
     // Initialize SDL
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {
