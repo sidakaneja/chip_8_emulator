@@ -7,6 +7,9 @@
 
 int main(int argc, char **argv)
 {
+
+    struct chip8 chip8;
+    chip8_memory_set(&chip8.memory, 100, 'Z');
     // Initialize SDL
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {
