@@ -9,7 +9,12 @@ int main(int argc, char **argv)
 {
 
     struct chip8 chip8;
-    chip8_memory_set(&chip8.memory, 100, 'Z');
+    chip8.registers.SP = 0;
+
+    chip8_stack_push(&chip8, 0xFF);
+    chip8_stack_push(&chip8, 0xAA);
+
+    printf("%x %x\n", chip8_stack_pop(&chip8), chip8_stack_pop(&chip8));
     // Initialize SDL
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {
