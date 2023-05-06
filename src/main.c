@@ -11,9 +11,9 @@ int main(int argc, char **argv)
 {
 
     struct chip8 chip8;
-    chip8.registers.SP = 0;
+    chip8_init(&chip8);
 
-    const uint8_t keyboard_map[CHIP8_TOTAL_KEYS]{
+    const uint8_t keyboard_map[CHIP8_TOTAL_KEYS] = {
         SDLK_0, SDLK_1, SDLK_2, SDLK_3, SDLK_4, SDLK_5, SDLK_6,
         SDLK_7, SDLK_8, SDLK_9, SDLK_a, SDLK_b, SDLK_c, SDLK_d,
         SDLK_e, SDLK_f};
@@ -36,13 +36,22 @@ int main(int argc, char **argv)
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     SDL_RenderClear(renderer);
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
-    SDL_Rect r;
-    r.x = 0;
-    r.y = 0;
-    r.w = 40;
-    r.h = 40;
-    SDL_RenderDrawRect(renderer, &r);
-    SDL_RenderPresent(renderer);
+    for (int x = 0; x < CHIP8_WIDTH; x++)
+    {
+        for (int y = 0; y < CHIP8_HEIGHT; y++)
+        {
+            if (chip8_screen_is_set(&chip8.screen, x, y))
+            {
+                SDL_Rect r;
+                r.x = x * CHIP8_WINDOW_MULTIPLIER;
+                r.y = y * CHIP8_WINDOW_MULTIPLIER;
+                r.w = CHIP8_WINDOW_MULTIPLIER;
+                r.h = CHIP8_WINDOW_MULTIPLIER;
+                SDL_RenderFillRect(renderer, &r);
+                SDL_RenderPresent(renderer);
+            }
+        }
+    }
 
     // Need to poll events in loop, otherwise the window doesn't render
     SDL_Event e;
